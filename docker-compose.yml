@@ -51,7 +51,7 @@ services:
       - MINIO_SERVER_URL=http://localhost:9000
       - MINIO_PORT=9000
       - MINIO_ROOT_USER=rtuitlab
-      - MINIO_ROOT_PASSWORD=RedAlert
+      - MINIO_ROOT_PASSWORD=qweqweqwe
       - MINIO_BASE_STORAGE=ch-main-storage
       - MINIO_PROXY_HOST=minio
 
