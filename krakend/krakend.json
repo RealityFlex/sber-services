@@ -1,0 +1,41 @@
+{
+    "$schema": "https://www.krakend.io/schema/krakend.json",
+    "version": 3,
+    "timeout": "15s",  
+    "cache_ttl": "300s",
+    "name": "KrakenD - API Gateway",
+    "port": 8090,
+    "extra_config": {
+      "router": {
+        "return_error_msg": true
+      }
+    },
+      "endpoints":[
+      { 
+        "endpoint": "/me",
+        "method": "GET",
+        "output_encoding": "no-op",
+        "input_headers": ["*"],
+        "input_query_strings": ["*"],
+        "extra_config": {
+          "auth/validator": {
+              "alg": "RS256",
+              "jwk_url": "https://b7f3-46-22-62-42.ngrok-free.app/jwk",
+              "disable_jwk_security": true,
+              "operation_debug": true,
+              "propagate_claims": [
+                ["exp", "exp"],
+                ["sub", "sub"]
+              ]
+          }
+      },
+        "backend": [
+          {
+            "host": ["$AUTH_HOST"],
+            "url_pattern": "/me",
+            "method": "GET"
+          }
+        ]
+      }
+    ]
+    }

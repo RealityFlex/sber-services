@@ -1,0 +1,8 @@
+{
+  "error_templates": {
+    "jwt_validation_error": {
+      "message": "Unable to validate the token: {{ .Error }}",
+      "status_code": 401
+    }
+  }
+}

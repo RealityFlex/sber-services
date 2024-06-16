@@ -1,0 +1,6 @@
+sber.levandrovskiy.ru {
+  reverse_proxy /api/* 62.109.8.64:8190
+  reverse_proxy /openapi.json 62.109.8.64:8190
+  reverse_proxy /* 62.109.8.64:8080
+}
+

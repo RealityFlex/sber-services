@@ -1,0 +1,106 @@
+{{define "Prod"}}
+
+{{$host := .}}
+
+{
+    "@comment": "This endpoint serves the documentation under /docs/",
+    "endpoint": "/docs/*",
+    "output_encoding": "no-op",
+    "backend": [
+        {
+            "extra_config": {
+                "backend/static-filesystem": {
+                    "path": "./docs/"
+                }
+            },
+            "url_pattern": "/",
+            "host": ["{{ $host }}"]
+        }
+    ]
+},
+{ 
+    "endpoint": "/me",
+    "method": "GET",
+    "output_encoding": "no-op",
+    "input_headers": ["*"],
+    "input_query_strings": ["*"],
+    "extra_config": {
+        "auth/validator": {
+            "alg": "RS256",
+            "jwk_url": "{{ $host }}/jwk",
+            "disable_jwk_security": true,
+            "operation_debug": true,
+            "propagate_claims": [
+            ["exp", "exp"],
+            ["sub", "sub"]
+            ]
+        }
+    },
+    "backend": [
+        {
+        "host": ["{{ $host }}"],
+        "url_pattern": "/me",
+        "method": "GET"
+        }
+    ]
+},
+{ 
+    "endpoint": "/docs",
+    "method": "GET",
+    "output_encoding": "no-op",
+    "input_headers": ["*"],
+    "input_query_strings": ["*"],
+    "backend": [
+        {
+        "host": ["{{ $host }}"],
+        "url_pattern": "/docs",
+        "method": "GET"
+        }
+    ]
+},
+{ 
+    "endpoint": "/openapi.json",
+    "method": "GET",
+    "output_encoding": "no-op",
+    "input_headers": ["*"],
+    "input_query_strings": ["*"],
+    "backend": [
+        {
+        "host": ["{{ $host }}"],
+        "url_pattern": "/openapi.json",
+        "method": "GET"
+        }
+    ]
+},
+{ 
+    "endpoint": "/signup",
+    "method": "POST",
+    "output_encoding": "no-op",
+    "input_headers": ["*"],
+    "input_query_strings": ["*"],
+    "backend": [
+        {
+        "host": ["{{ $host }}"],
+        "url_pattern": "/signup",
+        "method": "POST"
+        }
+    ]
+},
+{ 
+    "endpoint": "/login",
+    "method": "POST",
+    "output_encoding": "no-op",
+    "input_headers": ["*"],
+    "input_query_strings": ["*"],
+    "backend": [
+        {
+        "host": ["{{ $host }}"],
+        "url_pattern": "/login",
+        "method": "POST"
+        }
+    ]
+}
+
+
+
+{{end}}
